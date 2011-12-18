@@ -1,0 +1,5 @@
+This project is the Java implementation of the Online Latent Dirichlet Allocation Algorithm as described in
+
+http://www.cs.princeton.edu/~blei/papers/HoffmanBleiBach2010b.pdf
+
+The implementation follows the online version written in Python (http://www.cs.princeton.edu/˜mdhoffma)
