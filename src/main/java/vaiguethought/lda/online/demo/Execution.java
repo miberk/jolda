@@ -43,7 +43,7 @@ public class Execution {
   
 
         int D=  10800;
-        int K = 100; //topics
+        int K = 100;
         int batchSize= 1024;
 
         double tau =  1d;
@@ -60,9 +60,7 @@ public class Execution {
         for(int i=0; i*batchSize < docs.size();++i){
             int max = Math.min((i+1)*batchSize, docs.size());
             Documents documents = new Documents(docs.subList(i * batchSize, max), v);
-            long s = System.currentTimeMillis();
             Result result = lda.workOn(documents);
-            delta+=System.currentTimeMillis() - s;
             System.out.println(result);
         }
         System.out.println("Time " + delta/1000);

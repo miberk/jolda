@@ -47,12 +47,12 @@ public class OnlineLDA {
     /**
      * For a vector theta ~ Dir(alpha), computes E[log(theta)] given alpha.
      * @param W  - vocabulary length
-     * @param K  - Number of topics
-     * @param D  - Total number of documents in the population.
-     * @param alpha - Hyperparameter for prior on weight vectors theta
-     * @param eta   - Hyperparameter for prior on topics beta
+     * @param K  - number of topics
+     * @param D  - total number of documents in the population.
+     * @param alpha - hyperparameter for prior on weight vectors theta
+     * @param eta   - hyperparameter for prior on topics beta
      * @param tau   - controls early iterations
-     * @param kappa -  Learning rate: exponential decay rate, should be within (0.5, 1.0].
+     * @param kappa -  learning rate: exponential decay rate, should be within (0.5, 1.0].
      */
     public OnlineLDA(int W, int K, int D, double alpha,
                      double eta, double tau , double kappa) {

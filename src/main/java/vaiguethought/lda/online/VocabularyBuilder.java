@@ -37,10 +37,6 @@ public class VocabularyBuilder {
     //Token mapped to number of documents it belongs to
     final CountingMap docFreqMap = new CountingMap();
 
-    /**
-     * Allows no
-     * @param cutOff -defines upper limit of tokens with highest TF-IDF score
-     */
     public VocabularyBuilder(int cutOff) {
         this.bondedSet= new BoundedSet(cutOff);
         this.minimalDocFrequency = 3;
