@@ -24,6 +24,7 @@ import org.apache.commons.io.IOUtils;
 import vagueobjects.ir.lda.tokens.Documents;
 import vagueobjects.ir.lda.online.OnlineLDA;
 import vagueobjects.ir.lda.online.Result;
+import vagueobjects.ir.lda.tokens.PlainVocabulary;
 import vagueobjects.ir.lda.tokens.Vocabulary;
 
 import java.io.*;
@@ -51,14 +52,14 @@ public class Execution {
         double alpha = 1.d/K;
         double eta = 1.d/K;
 
-        Vocab v = new Vocab( dictPath);
-        OnlineLDA lda = new OnlineLDA(v.size(),K, D, alpha, eta, tau, kappa);
+        Vocabulary vocabulary = new PlainVocabulary( dictPath);
+        OnlineLDA lda = new OnlineLDA(vocabulary.size(),K, D, alpha, eta, tau, kappa);
         List<String> docs = readDocs(docPath);
         long delta=0;
 
         for(int i=0; i*batchSize < docs.size();++i){
             int max = Math.min((i+1)*batchSize, docs.size());
-            Documents documents = new Documents(docs.subList(i * batchSize, max), v);
+            Documents documents = new Documents(docs.subList(i * batchSize, max), vocabulary);
             Result result = lda.workOn(documents);
             System.out.println(result);
         }
@@ -80,44 +81,4 @@ public class Execution {
         return strings;
     }
 
-
-    static class Vocab implements Vocabulary {
-        final List<String> strings =new ArrayList<String>();
-
-        Vocab(Collection<String> strings) {
-            this.strings.addAll(strings);
-        }
-
-        Vocab(String path ) throws IOException{
-            Scanner scanner = new Scanner(new File(path));
-            while (scanner.hasNextLine()){
-                strings.add(scanner.nextLine().trim());
-            }
-        }
-
-        @Override
-        public boolean contains(String token) {
-            return strings.contains(token);
-        }
-
-        @Override
-        public int size() {
-            return strings.size();
-        }
-
-        @Override
-        public int getId(String token) {
-            for(int i=0; i< strings.size();++i){
-                if(strings.get(i).equals(token)){
-                    return i;
-                }
-            }
-            throw new IllegalArgumentException();
-        }
-
-        @Override
-        public String getToken(int id) {
-            return strings.get(id);
-        }
-    }
 }
